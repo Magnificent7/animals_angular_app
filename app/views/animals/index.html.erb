@@ -1,0 +1,30 @@
+<div ng-app="app">
+  <div ng-controller="animalsCtrl" ng-init="setup()">
+    <h1>ANIMALS INDEX!</h1>
+
+    <button ng-click="toggleForm()">Create New Animal</button>
+    <form ng-if="showForm">
+      Name: <input type="text" ng-model="newAnimalName"><br>
+      Number of Legs: <input type="number" ng-model="newAnimalLegCount"><br>
+      Description: <textarea ng-model="newAnimalDescription" cols="20" rows="10"></textarea><br>
+      <input type="radio" ng-model="newAnimalMeatEater" value="true"> I eat meat<br>
+      <input type="radio" ng-model="newAnimalMeatEater" value="false"> I'm a vegetarian
+      <button ng-click="createNewAnimal(newAnimalName, newAnimalLegCount, newAnimalDescription, newAnimalMeatEater)">Submit</button>
+    </form>
+
+    <datalist id="names">
+      <option ng-repeat="animal in animals">{{animal.name}}</option>
+    </datalist>
+
+    <div>
+      Filter: <input ng-model="animalFilter" list="names">  
+    </div>
+    <div ng-repeat="animal in animals | filter: animalFilter">
+      <h3>Name: {{animal.name}}</h3>
+      <p>Legs: {{animal.leg_count}}</p>
+      <p>Description: {{animal.description}}</p>
+      <p>Eats meat?: {{animal.meat_eater}}</p>
+    </div>
+
+  </div>
+</div>
